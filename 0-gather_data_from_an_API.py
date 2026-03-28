@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-"""0-gather_data_from_an_API.py
-Fetch TODO list progress for a given employee id from JSONPlaceholder API.
 """
-import json
+Fetch employee TODO progress from API.
+"""
+import requests
 import sys
-import urllib.request
 
 
 def fetch_json(url):
@@ -47,6 +46,7 @@ def fetch_json(url):
 
 def main():
 	if len(sys.argv) != 2:
+		sys.exit(1)
 		return
 	try:
 		user_id = int(sys.argv[1])
@@ -58,9 +58,9 @@ def main():
 	completed = [t for t in todos if t.get('completed') is True]
 	print('Employee {} is done with tasks({}/{}):'.format(name, len(completed), len(todos)))
 	for task in completed:
-		print('\t {}'.format(task.get('title')))
+		print("\t {}".format(task.get("title")))
 
 
 if __name__ == "__main__":
-	main()
+	fetch_todo(sys.argv[1])
 
